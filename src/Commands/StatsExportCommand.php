@@ -34,7 +34,7 @@ class StatsExportCommand extends Command
             $this->to = $this->argument('to');
             $run_for_all = $this->option('run-for-all');
 
-            $exporters = config('stats_exporters');
+            $exporters = config('stats_exporter.exporter_classes');
             $this->now = Carbon::now();
             
             if ($run_for_all) {
@@ -56,7 +56,11 @@ class StatsExportCommand extends Command
         }
     }
 
-
+    /**
+    * @param string $from
+    * @param string $to
+    * @return array
+    */
     public function getManualMaxToDates($from, $to): array
     {
         $from = Carbon::parse($from);
@@ -77,6 +81,9 @@ class StatsExportCommand extends Command
         return $max_to_dates;
     }
 
+    /**
+    * @return array
+    */
     public function getRegularMaxToDates(): array
     {
         $query = StatsExportRunHistory::where('exporter_class', $this->name);
@@ -100,6 +107,9 @@ class StatsExportCommand extends Command
         return $max_to_dates;
     }
 
+    /** 
+    * @return array
+    */
     public function getMaxToDates(): array
     {
         if ($this->from && $this->to) {
@@ -109,6 +119,9 @@ class StatsExportCommand extends Command
         return $this->getRegularMaxToDates();
     }
 
+    /** 
+    * @return void
+    */
     public function dispatchJobs(): void
     {
         $max_to_dates = $this->getMaxToDates();
