@@ -3,7 +3,7 @@
 namespace Booj\StatsExporter\Jobs;
 
 use Booj\StatsExporter\Interfaces\JsonExporterInterface;
-use App\Models\Stats\StatsExportRunHistory;
+use Booj\StatsExporter\Models\StatsExportRunHistory;
 use Carbon\Carbon;
 use Illuminate\Support\Str;
 

@@ -6,7 +6,7 @@ use Booj\StatsExporter\Jobs\StatExportJob;
 use Carbon\Carbon;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\Log;
-use App\Models\Stats\StatsExportRunHistory;
+use Booj\StatsExporter\Models\StatsExportRunHistory;
 use Illuminate\Support\Str;
 
 class StatsExportCommand extends Command

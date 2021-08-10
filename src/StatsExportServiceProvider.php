@@ -19,6 +19,9 @@ class StatsExporterServiceProvider extends ServiceProvider
      */
     public function register()
     {
+        $this->mergeConfigFrom(
+            __DIR__.'/config/stats_exporter.php', 'stats_exporter'
+        );
     }
 
     /**
@@ -29,7 +32,7 @@ class StatsExporterServiceProvider extends ServiceProvider
     public function boot()
     {
         $this->publishes([
-            __DIR__.'/config/stats_exporters.php' => config_path('stats_exporters.php'),
+            __DIR__.'/config/stats_exporter.php' => config_path('stats_exporter.php'),
         ]);
 
         $this->loadMigrationsFrom(__DIR__ . '/database/migrations');
