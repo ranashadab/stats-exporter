@@ -4,13 +4,13 @@ namespace Booj\StatsExporter\Tests\Commands;
 
 use Booj\StatsExporter\Commands\StatsExportCommand;
 use Carbon\Carbon;
-use Booj\StatsExporter\Tests\TestCase;
+use PHPUnit\Framework\TestCase as ParentTestCase;
 
 /**
  * Class CleanUpSpamAccountsCommandTest
  * @package Tests\Console\Commands
  */
-class StatsExportCommandTest extends TestCase
+class StatsExportCommandTest extends ParentTestCase
 {
 
 
