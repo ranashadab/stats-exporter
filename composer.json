@@ -1,0 +1,33 @@
+{
+    "name": "booj/stats-exporter",
+    "description": "A set of classes to make CRUD development on the Lumen framework rapid and consistent.",
+    "type": "library",
+    "authors": [
+        {
+            "name": "Samuel Collins",
+            "email": "samuel.jackson.collins@gmail.com"
+        }
+    ],
+    "require-dev": {
+        "phpunit/phpunit": "^8.5",
+        "laravel/framework": "5.8.*",
+        "mockery/mockery": "dev-master"
+    },
+    "autoload": {
+        "psr-4": {
+            "Booj\\StatsExporter\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Booj\\StatsExporter\\Tests\\": "tests/"
+        }
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Booj\\StatsExporter\\StatsExportServiceProvider"
+            ]
+        }
+    }
+}
