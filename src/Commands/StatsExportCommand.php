@@ -34,7 +34,7 @@ class StatsExportCommand extends Command
             $this->to = $this->argument('to');
             $run_for_all = $this->option('run-for-all');
 
-            $exporters = config('constants.stats_exporters');
+            $exporters = config('stats_exporters');
             $this->now = Carbon::now();
             
             if ($run_for_all) {
