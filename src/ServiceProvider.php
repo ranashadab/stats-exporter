@@ -1,6 +1,6 @@
 <?php
 
-namespace Booj\StatsExporter\Providers;
+namespace Booj\StatsExporter;
 
 use Illuminate\Support\ServiceProvider as BaseServiceProvider;
 use Booj\StatsExporter\Commands\StatsExportCommand;
