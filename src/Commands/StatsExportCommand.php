@@ -12,7 +12,7 @@ use Illuminate\Support\Str;
 class StatsExportCommand extends Command
 {
     public const DEFAULT_EXTENSION = 'json';
-    public const STATS_EXPORT_STORAGE = "s3_stats_export";
+    public const DEFAULT_STATS_EXPORT_STORAGE = "s3_stats_export";
     public const MAX_QUERY_MINUTES = 360;
     public $name;
     public $now;
@@ -21,7 +21,7 @@ class StatsExportCommand extends Command
 
     //Sample manual run
     //php artisan stats:export 'App\Exports\StatsQueries\TokenBlacklist' '2021/06/22 11:05:00' '2021/06/22 11:30:00'
-    public $signature = 'stats:export {name? : Exporter Class} {from? : From DateTime (possible valid format : 2021/06/22 11:05:00) } {to? : To DateTime (possible valid format : 2021/06/22 11:30:00)} {--run-for-all} ';
+    public $signature = 'stats:export {name? : Exporter Class} {from? : From DateTime (possible valid format : 2021/06/22 11:05:00) } {to? : To DateTime (possible valid format : 2021/06/22 11:30:00)} {storage? : Export Storage (possible values "local", "s3_stats_export" etc.)} {--run-for-all} ';
     public $description = 'Export stats data for Datadog.';
 
     public function handle()
@@ -32,6 +32,7 @@ class StatsExportCommand extends Command
             $this->name = $this->argument('name');
             $this->from = $this->argument('from');
             $this->to = $this->argument('to');
+            $this->storage = $this->argument('storage') ?? self::DEFAULT_STATS_EXPORT_STORAGE;
             $run_for_all = $this->option('run-for-all');
 
             $exporters = config('stats_exporter.exporter_classes');
@@ -107,7 +108,7 @@ class StatsExportCommand extends Command
         return $max_to_dates;
     }
 
-    /** 
+    /**
     * @return array
     */
     public function getMaxToDates(): array
@@ -119,21 +120,20 @@ class StatsExportCommand extends Command
         return $this->getRegularMaxToDates();
     }
 
-    /** 
+    /**
     * @return void
     */
     public function dispatchJobs(): void
     {
         $max_to_dates = $this->getMaxToDates();
         foreach ($max_to_dates as $max_to_date) {
-            $temp_arr = explode('\\', $this->name);
-            $job_code = Str::kebab(end($temp_arr));
+            $job_code = Str::kebab(end(explode('\\', $this->name)));
             $filename = "stats-export-{$job_code}-{$max_to_date['next']->toJson()}." . self::DEFAULT_EXTENSION;
             dispatch_now(new StatExportJob(
                 new $this->name($max_to_date['latest'], $max_to_date['next']),
                 $job_code,
                 $filename,
-                self::STATS_EXPORT_STORAGE
+                $this->storage
             ));
         }
     }

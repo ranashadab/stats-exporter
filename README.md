@@ -32,6 +32,9 @@ We follow PSR2 standards.
 
 ## Installation
 
+
+   To Be Changed.
+   
 To install this package you need to get the Gitlab token from Sam or Reid. You will have to specify in your `composer.json` file that you are pulling from a repository. e.g.
 ```json
 {
@@ -59,44 +62,41 @@ You are now ready to start using the ReposiCRUD package.
 
 We have to do a couple of things manually:
 * ### Register ServiceProvider
-
-Add this line to `bootstrap\app.php`. 
-```php
-/**
- * Booj/StatsExporter
-*/
-$app->register(\Booj\StatsExporter\ServiceProvider::class);
-$app->configure('stats_exporter');
-
-```
+    
+    Add this line to `bootstrap\app.php`. 
+    ```php
+    /**
+     * Booj/StatsExporter
+    */
+    $app->register(\Booj\StatsExporter\ServiceProvider::class);
+    ```
 * ### Configure stats_exporter
 
-Create a file named stats_exporter.php in your config directory. This file should contain all the Query Classes.
-Following is a sample for the contents of file.
-```php
-return [
-    "exporter_classes" => [
-        \App\Exports\StatsQueries\FailedJobException::class,
-        \App\Exports\StatsQueries\PropertySearchesCreated::class,
-        \App\Exports\StatsQueries\UsersCreated::class,
-        \App\Exports\StatsQueries\PropertySearchSendHistory::class,
-        \App\Exports\StatsQueries\TokenBlacklist::class,
-        \App\Exports\StatsQueries\PasswordReset::class
-    ]
-];
-``` 
-Add this line to `bootstrap\app.php`. 
-```php
-/**
- * Booj/StatsExporter
-*/
-$app->configure('stats_exporter');
+    Create a file named stats_exporter.php in your config directory. This file should contain all the Query Classes.
+    Following is a sample for the contents of file.
+    ```php
+    return [
+        "exporter_classes" => [
+            \App\Exports\StatsQueries\FailedJobException::class,
+            \App\Exports\StatsQueries\PropertySearchesCreated::class,
+            \App\Exports\StatsQueries\UsersCreated::class,
+            \App\Exports\StatsQueries\PropertySearchSendHistory::class,
+            \App\Exports\StatsQueries\TokenBlacklist::class,
+            \App\Exports\StatsQueries\PasswordReset::class
+        ]
+    ];
+    ``` 
+    Add this line to `bootstrap\app.php`. 
+    ```php
+    /**
+     * Booj/StatsExporter
+    */
+    $app->configure('stats_exporter');
 
-```
+    ```
 * ### Schedule Tasks
-
-
-NOTE: You will need to write your own routes and middleware (see [Middleware], and policy checks (see [Policies]. See the instructions below. 
+    
+    To Be Added.
 
 ## Tests
 
