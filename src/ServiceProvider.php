@@ -2,10 +2,11 @@
 
 namespace Booj\StatsExporter\Providers;
 
+use Illuminate\Support\ServiceProvider as BaseServiceProvider;
 use Booj\StatsExporter\Commands\StatsExportCommand;
-use Illuminate\Support\ServiceProvider;
+use Illuminate\Console\Scheduling\Schedule;
 
-class StatsExporterServiceProvider extends ServiceProvider
+class ServiceProvider extends BaseServiceProvider
 {
 
     protected $commands = [
@@ -40,5 +41,15 @@ class StatsExporterServiceProvider extends ServiceProvider
         if ($this->app->runningInConsole()) {
             $this->commands($this->commands);
         }
+
+        //IMP: Bad Practice? 
+        $this->callAfterResolving(Schedule::class, function (Schedule $schedule) {
+            $exporter_classes = config('stats_exporters.exporter_classes');
+            if ($exporter_classes && is_array($exporter_classes)) {
+                foreach ($exporter_classes as $exporter_class) {
+                    $schedule->command("stats:export '{$exporter_class}'")->everyFiveMinutes();
+                }
+            }
+        });
     }
 }

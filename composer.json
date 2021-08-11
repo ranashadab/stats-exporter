@@ -1,6 +1,6 @@
 {
     "name": "booj/stats-exporter",
-    "description": "A set of classes to make CRUD development on the Lumen framework rapid and consistent.",
+    "description": "A package for Lumen/Laravel intended for use with booj projects to export statistics.",
     "type": "library",
     "authors": [
         {
@@ -31,7 +31,7 @@
     "extra": {
         "laravel": {
             "providers": [
-                "Booj\\StatsExporter\\Providers\\StatsExporterServiceProvider"
+                "Booj\\StatsExporter\\ServiceProvider"
             ]
         }
     }
