@@ -42,14 +42,20 @@ class ServiceProvider extends BaseServiceProvider
             $this->commands($this->commands);
         }
 
-        //IMP: Bad Practice? 
-        $this->callAfterResolving(Schedule::class, function (Schedule $schedule) {
-            $exporter_classes = config('stats_exporters.exporter_classes');
-            if ($exporter_classes && is_array($exporter_classes)) {
-                foreach ($exporter_classes as $exporter_class) {
-                    $schedule->command("stats:export '{$exporter_class}'")->everyFiveMinutes();
-                }
-            }
-        });
+
+        // Task Scheduling can be considered here
+        // FOR LUMEN:
+        // IMP: Bad Practice? 
+        // $this->callAfterResolving(Schedule::class, function (Schedule $schedule) {
+        //         // schedule here
+        // });
+
+        // FOR LARAVEL:
+        // IMP: Bad Practice?
+        // $this->app->booted(function () {
+        //     $this->callAfterResolving(Schedule::class, function (Schedule $schedule) {
+        //         // schedule here
+        //     });
+        // });
     }
 }
