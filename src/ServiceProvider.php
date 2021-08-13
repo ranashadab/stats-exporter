@@ -8,7 +8,6 @@ use Illuminate\Console\Scheduling\Schedule;
 
 class ServiceProvider extends BaseServiceProvider
 {
-
     protected $commands = [
         StatsExportCommand::class,
     ];
@@ -21,7 +20,8 @@ class ServiceProvider extends BaseServiceProvider
     public function register()
     {
         $this->mergeConfigFrom(
-            __DIR__.'/config/stats_exporter.php', 'stats_exporter'
+            __DIR__.'/config/stats_exporter.php',
+            'stats_exporter'
         );
     }
 
@@ -45,7 +45,7 @@ class ServiceProvider extends BaseServiceProvider
 
         // Task Scheduling can be considered here
         // FOR LUMEN:
-        // IMP: Bad Practice? 
+        // IMP: Bad Practice?
         // $this->callAfterResolving(Schedule::class, function (Schedule $schedule) {
         //         // schedule here
         // });
